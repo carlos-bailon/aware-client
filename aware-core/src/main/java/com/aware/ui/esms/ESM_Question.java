@@ -29,6 +29,7 @@ import org.json.JSONObject;
 public class ESM_Question extends DialogFragment {
 
     public JSONObject esm = new JSONObject();
+    public long answer_start_time;
 
     public int _id;
 
@@ -36,6 +37,7 @@ public class ESM_Question extends DialogFragment {
     public static final String esm_title = "esm_title";
     public static final String esm_instructions = "esm_instructions";
     public static final String esm_submit = "esm_submit";
+    public static final String esm_cancel = "esm_cancel";
     public static final String esm_expiration_threshold = "esm_expiration_threshold";
     public static final String esm_notification_timeout = "esm_notification_timeout";
     public static final String esm_notification_retry = "esm_notification_retry";
@@ -45,6 +47,8 @@ public class ESM_Question extends DialogFragment {
     public static final String flow_user_answer = "user_answer";
     public static final String flow_next_esm = "next_esm";
     public static final String esm_app_integration = "esm_app_integration";
+    public static final String esm_class = "esm_class";
+    public static final String esm_completion_time = "esm_completion_time";
 
     protected ESM_Question setID(int id) {
         _id = id;
@@ -121,6 +125,18 @@ public class ESM_Question extends DialogFragment {
         return this;
     }
 
+    public String getCancelButton() throws JSONException {
+        if (!this.esm.has(esm_cancel)) {
+            this.esm.put(esm_cancel, "CANCEL");
+        }
+        return this.esm.getString(esm_cancel);
+    }
+
+    public ESM_Question setCancelButton(String cancel) throws JSONException {
+        this.esm.put(esm_cancel, cancel);
+        return this;
+    }
+
     public int getExpirationThreshold() throws JSONException {
         if (!this.esm.has(esm_expiration_threshold)) {
             this.esm.put(esm_expiration_threshold, 0);
@@ -147,6 +163,13 @@ public class ESM_Question extends DialogFragment {
             this.esm.put(esm_replace_queue, false);
         }
         return this.esm.getBoolean(esm_replace_queue);
+    }
+
+    public long getCompletionTime() throws JSONException {
+        if (!this.esm.has(esm_completion_time)) {
+            this.esm.put(esm_completion_time, 0);
+        }
+        return this.esm.getLong(esm_completion_time);
     }
 
     /**
@@ -192,6 +215,17 @@ public class ESM_Question extends DialogFragment {
      */
     public ESM_Question setReplaceQueue(boolean replace_queue) throws JSONException {
         this.esm.put(esm_replace_queue, replace_queue);
+        return this;
+    }
+
+    /**
+     * Time taken to answer the question
+     * @param completion_time
+     * @return
+     * @throws JSONException
+     */
+    public ESM_Question setCompletionTime(long completion_time) throws JSONException {
+        this.esm.put(esm_completion_time, completion_time);
         return this;
     }
 
@@ -311,6 +345,18 @@ public class ESM_Question extends DialogFragment {
         return this;
     }
 
+    public String getESM_Class() throws JSONException {
+        if (!this.esm.has(esm_class)) {
+            this.esm.put(esm_class, "");
+        }
+        return this.esm.getString(esm_class);
+    }
+
+    public ESM_Question setESM_Class(String _class) throws JSONException {
+        this.esm.put(esm_class, _class);
+        return this;
+    }
+
     public JSONObject build() throws JSONException {
         JSONObject esm = new JSONObject();
         esm.put("esm", this.esm);
@@ -351,6 +397,9 @@ public class ESM_Question extends DialogFragment {
                 expire_monitor = new ESMExpireMonitor(System.currentTimeMillis(), getExpirationThreshold(), getID());
                 expire_monitor.execute();
             }
+
+            answer_start_time = System.currentTimeMillis();
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
