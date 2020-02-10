@@ -36,3 +36,6 @@ project(':com.aware.plugin.sensortag').projectDir = new File('com.aware.plugin.s
 
 include ':com.aware.plugin.sentimental'
 project(':com.aware.plugin.sentimental').projectDir = new File('com.aware.plugin.sentimental/com.aware.plugin.sentimental.lib')
+
+include ':com.aware.plugin.esm.flexible'
+project(':com.aware.plugin.esm.flexible').projectDir = new File('com.aware.plugin.esm.flexible/com.aware.plugin.esm.flexible.lib')

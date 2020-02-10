@@ -184,6 +184,8 @@ public class Stream_UI extends Aware_Activity {
                             convertView = new com.aware.plugin.google.fused_location.ContextCard().getContextCard(mContext);
                         } else if (cards.getJSONObject(position).getString(Aware_Plugins.PLUGIN_PACKAGE_NAME).equals("com.aware.plugin.openweather")) {
                             convertView = new com.aware.plugin.openweather.ContextCard().getContextCard(mContext);
+                        } else if (cards.getJSONObject(position).getString(Aware_Plugins.PLUGIN_PACKAGE_NAME).equals("com.aware.plugin.esm.flexible")) {
+                            convertView = new com.aware.plugin.esm.flexible.ContextCard().getContextCard(mContext);
                         }
                     } else {
                         convertView = Aware.getContextCard(mContext, cards.getJSONObject(position).getString(Aware_Plugins.PLUGIN_PACKAGE_NAME));
