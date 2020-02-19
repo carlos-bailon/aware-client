@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import com.aware.providers.ESM_Provider;
 import com.aware.utils.ESM_ImageUtils;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Random;
 
@@ -123,7 +125,7 @@ public class ESM_Scale_Image extends ESM_Question {
         if (!this.esm.has(esm_scale_start_random)) {
             this.esm.put(esm_scale_start_random, false);
         }
-        return  this.esm.getBoolean(esm_scale_start_random);
+        return this.esm.getBoolean(esm_scale_start_random);
     }
 
     public ESM_Scale_Image setScaleStartRandom(boolean isRandom) throws  JSONException {
@@ -135,7 +137,7 @@ public class ESM_Scale_Image extends ESM_Question {
         if (!this.esm.has(esm_scale_start_random_values)) {
             this.esm.put(esm_scale_start_random_values, 0);
         }
-        return  this.esm.getInt(esm_scale_start_random_values);
+        return this.esm.getInt(esm_scale_start_random_values);
     }
 
     public ESM_Scale_Image setScaleStartRandomValues(int randomValues) throws  JSONException {
@@ -145,7 +147,7 @@ public class ESM_Scale_Image extends ESM_Question {
 
     public String getLeftImageUrl() throws JSONException {
         if (!this.esm.has(esm_left_image_url)) {
-            this.esm.put(esm_left_image_url, null);
+            this.esm.put(esm_left_image_url, JSONObject.NULL);
         }
         return this.esm.getString(esm_left_image_url);
     }
@@ -157,7 +159,7 @@ public class ESM_Scale_Image extends ESM_Question {
 
     public String getRightImageUrl() throws JSONException {
         if (!this.esm.has(esm_right_image_url)) {
-            this.esm.put(esm_right_image_url, null);
+            this.esm.put(esm_right_image_url, JSONObject.NULL);
         }
         return this.esm.getString(esm_right_image_url);
     }
@@ -227,11 +229,15 @@ public class ESM_Scale_Image extends ESM_Question {
             final ImageView imageLeft = ui.findViewById(R.id.image_left);
             final ImageView imageRight = ui.findViewById(R.id.image_right);
 
-            if(getLeftImageUrl() != null) {
-                imageLeft.setImageBitmap(ESM_ImageUtils.getBitmapFromURL(getLeftImageUrl()));
+            if(getLeftImageUrl() != JSONObject.NULL.toString()) {
+                ESM_ImageUtils.BitmapRetrieverTask task = new ESM_ImageUtils.BitmapRetrieverTask();
+                task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, getLeftImageUrl());
+                imageLeft.setImageBitmap(task.bitmap);
             }
-            if(getRightImageUrl() != null) {
-                imageRight.setImageBitmap(ESM_ImageUtils.getBitmapFromURL(getRightImageUrl()));
+            if(getRightImageUrl() != JSONObject.NULL.toString()) {
+                ESM_ImageUtils.BitmapRetrieverTask task = new ESM_ImageUtils.BitmapRetrieverTask();
+                task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, getRightImageUrl());
+                imageRight.setImageBitmap(task.bitmap);
             }
 
             final SeekBar seekBar = ui.findViewById(R.id.esm_scale);

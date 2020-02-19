@@ -2,6 +2,7 @@ package com.aware.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.util.Base64;
 import android.util.Log;
 
@@ -50,26 +51,41 @@ public class ESM_ImageUtils {
 
     /**
      * Retrieves a bitmap from image from a url string
-     *
-     * @param src the url
-     * @return Bitmap
      */
-    public static Bitmap getBitmapFromURL(String src) {
-        try {
-            URL url = new URL(src);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            connection.connect();
-            if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                InputStream input = connection.getInputStream();
-                return BitmapFactory.decodeStream(input);
-            } else {
-                Log.e("ESM_Image", "Error connection to url: " + connection.getResponseCode() + " " + connection.getResponseMessage());
+    public static class BitmapRetrieverTask extends AsyncTask<String, Void, Bitmap> {
+
+        public static Bitmap bitmap;
+        public static final String REQUEST_METHOD = "GET";
+        public static final int READ_TIMEOUT = 15000;
+        public static final int CONNECTION_TIMEOUT = 15000;
+
+        @Override
+        protected Bitmap doInBackground(String... src) {
+            try {
+                URL url = new URL(src[0]);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod(REQUEST_METHOD);
+                connection.setReadTimeout(READ_TIMEOUT);
+                connection.setConnectTimeout(CONNECTION_TIMEOUT);
+                connection.connect();
+                if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                    InputStream input = connection.getInputStream();
+                    Bitmap output = BitmapFactory.decodeStream(input);
+                    input.close();
+                    return output;
+                } else {
+                    Log.e("ESM_Image", "Error connection to url: " + connection.getResponseCode() + " " + connection.getResponseMessage());
+                    return null;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
                 return null;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bm) {
+            this.bitmap = bm;
         }
     }
 }
