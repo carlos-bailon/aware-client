@@ -397,9 +397,6 @@ public class ESM_Question extends DialogFragment {
                 expire_monitor = new ESMExpireMonitor(System.currentTimeMillis(), getExpirationThreshold(), getID());
                 expire_monitor.execute();
             }
-
-            answer_start_time = System.currentTimeMillis();
-
         } catch (JSONException e) {
             e.printStackTrace();
         }

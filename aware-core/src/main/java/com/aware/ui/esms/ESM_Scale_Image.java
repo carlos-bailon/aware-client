@@ -323,7 +323,7 @@ public class ESM_Scale_Image extends ESM_Question {
                         rowData.put(ESM_Provider.ESM_Data.ANSWER_TIMESTAMP, System.currentTimeMillis());
                         rowData.put(ESM_Provider.ESM_Data.ANSWER, selected_scale_progress);
                         rowData.put(ESM_Provider.ESM_Data.STATUS, ESM.STATUS_ANSWERED);
-                        if (getScaleStartRandom()) rowData.put(ESM_Provider.ESM_Data.JSON, esm.toString());
+                        rowData.put(ESM_Provider.ESM_Data.JSON, esm.toString());
 
                         getContext().getContentResolver().update(ESM_Provider.ESM_Data.CONTENT_URI, rowData, ESM_Provider.ESM_Data._ID + "=" + getID(), null);
 
@@ -340,6 +340,10 @@ public class ESM_Scale_Image extends ESM_Question {
                     }
                 }
             });
+
+            /* Set when all resources are loaded */
+            answer_start_time = System.currentTimeMillis();
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
