@@ -181,6 +181,7 @@ public class Scheduler extends Aware_Sensor {
                 data.put(Scheduler_Provider.Scheduler_Data.SCHEDULE_ID, schedule.getScheduleID());
                 data.put(Scheduler_Provider.Scheduler_Data.SCHEDULE, schedule.build().toString());
                 data.put(Scheduler_Provider.Scheduler_Data.PACKAGE_NAME, (is_global) ? "com.aware.phone" : context.getPackageName());
+                if (schedule.getRandom().length() == 0) data.put(Scheduler_Provider.Scheduler_Data.LAST_TRIGGERED, System.currentTimeMillis());
 
                 Cursor schedules = context.getContentResolver().query(Scheduler_Provider.Scheduler_Data.CONTENT_URI, null, Scheduler_Provider.Scheduler_Data.SCHEDULE_ID + " LIKE '" + schedule.getScheduleID() + "' AND " + Scheduler_Provider.Scheduler_Data.PACKAGE_NAME + " LIKE '" + context.getPackageName() + "'", null, null);
                 if (schedules != null && schedules.getCount() == 1) {
@@ -291,6 +292,7 @@ public class Scheduler extends Aware_Sensor {
                 data.put(Scheduler_Provider.Scheduler_Data.SCHEDULE_ID, schedule.getScheduleID());
                 data.put(Scheduler_Provider.Scheduler_Data.SCHEDULE, schedule.build().toString());
                 data.put(Scheduler_Provider.Scheduler_Data.PACKAGE_NAME, package_name);
+                if (schedule.getRandom().length() == 0) data.put(Scheduler_Provider.Scheduler_Data.LAST_TRIGGERED, System.currentTimeMillis());
 
                 Cursor schedules = context.getContentResolver().query(Scheduler_Provider.Scheduler_Data.CONTENT_URI, null, Scheduler_Provider.Scheduler_Data.SCHEDULE_ID + " LIKE '" + schedule.getScheduleID() + "' AND " + Scheduler_Provider.Scheduler_Data.PACKAGE_NAME + " LIKE '" + package_name + "'", null, null);
                 if (schedules != null && schedules.getCount() == 1) {
@@ -865,6 +867,41 @@ public class Scheduler extends Aware_Sensor {
                 }
                 if (DEBUG) Log.d(Scheduler.TAG, "Trigger interval (delayed): " + execute_interval);
             }
+
+            // Trigger skipped schedules that haven't been triggered in correct time
+            Calendar trigger_time = Calendar.getInstance();
+            trigger_time.set(Calendar.MINUTE, 0);
+            trigger_time.set(Calendar.SECOND, 0);
+            trigger_time.set(Calendar.MILLISECOND, 0);
+
+            if (DEBUG) Log.d(Scheduler.TAG, "Checking if schedule " + schedule.getScheduleID() + " has been skipped...");
+
+            try {
+                JSONArray hours = schedule.getHours();
+                JSONArray minutes = schedule.getMinutes();
+
+                for (int i = 0; i < hours.length(); i++) {
+                    trigger_time.set(Calendar.HOUR_OF_DAY, hours.getInt(i));
+                    if (minutes.length() > 0) {
+                        for (int j = 0; j < minutes.length(); j++) {
+                            trigger_time.set(Calendar.MINUTE, minutes.getInt(j));
+                            if ((trigger_time.getTimeInMillis() >= previous.getTimeInMillis()) && (now.getTimeInMillis() >= trigger_time.getTimeInMillis())) {
+                                if (DEBUG) Log.d(Scheduler.TAG, "Found past schedule skipped!");
+                                return true;
+                            }
+                        }
+                    } else {
+                        if ((trigger_time.getTimeInMillis() >= previous.getTimeInMillis()) && (now.getTimeInMillis() >= trigger_time.getTimeInMillis())) {
+                            if (DEBUG) Log.d(Scheduler.TAG, "Found past schedule skipped!");
+                            return true;
+                        }
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            if (DEBUG) Log.d(Scheduler.TAG, "No past schedules skipped");
 
             // This is used to prevent executing the schedule multiple times for the same interval.
             // It defaults to true, and if a schedule repeats in the same time period (for example,

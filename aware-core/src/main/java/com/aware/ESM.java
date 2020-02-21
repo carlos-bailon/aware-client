@@ -204,6 +204,10 @@ public class ESM extends Aware_Sensor {
      * ESM that asks the user to make a video recording
      */
     public static final int TYPE_ESM_VIDEO = 16;
+    /**
+     * ESM Dialog with a discrete image-based likert scale
+     */
+    public static final int TYPE_ESM_SCALE_IMAGE = 17;
 
     /**
      * Required String extra for displaying an ESM. It should contain the JSON string that defines the ESM dialog.

@@ -34,3 +34,6 @@
 [submodule "com.aware.plugin.sentimental"]
 	path = com.aware.plugin.sentimental
 	url = https://github.com/denzilferreira/com.aware.plugin.sentimental.git
+[submodule "com.aware.plugin.esm.flexible"]
+	path = com.aware.plugin.esm.flexible
+	url = https://github.com/carlos-bailon/com.aware.plugin.esm.flexible.git
