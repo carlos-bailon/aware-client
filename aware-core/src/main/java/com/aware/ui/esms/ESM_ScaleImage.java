@@ -29,7 +29,7 @@ import java.util.Random;
 /**
  * Created by carlos-bailon on 14/06/18.
  */
-public class ESM_Scale_Image extends ESM_Question {
+public class ESM_ScaleImage extends ESM_Question {
 
     private static int selected_scale_progress = -1;
 
@@ -45,7 +45,7 @@ public class ESM_Scale_Image extends ESM_Question {
     public static final String esm_right_image_url = "esm_right_image_url";
     public static final String esm_value_visible = "esm_value_visible";
 
-    public ESM_Scale_Image() throws JSONException {
+    public ESM_ScaleImage() throws JSONException {
         this.setType(ESM.TYPE_ESM_SCALE_IMAGE);
     }
 
@@ -56,7 +56,7 @@ public class ESM_Scale_Image extends ESM_Question {
         return this.esm.getInt(esm_scale_start);
     }
 
-    public ESM_Scale_Image setScaleStart(int start) throws JSONException {
+    public ESM_ScaleImage setScaleStart(int start) throws JSONException {
         this.esm.put(esm_scale_start, start);
         return this;
     }
@@ -68,7 +68,7 @@ public class ESM_Scale_Image extends ESM_Question {
         return this.esm.getInt(esm_scale_step);
     }
 
-    public ESM_Scale_Image setScaleStep(int step) throws JSONException {
+    public ESM_ScaleImage setScaleStep(int step) throws JSONException {
         this.esm.put(esm_scale_step, step);
         return this;
     }
@@ -80,7 +80,7 @@ public class ESM_Scale_Image extends ESM_Question {
         return this.esm.getInt(esm_scale_min);
     }
 
-    public ESM_Scale_Image setScaleMin(int min) throws JSONException {
+    public ESM_ScaleImage setScaleMin(int min) throws JSONException {
         this.esm.put(esm_scale_min, min);
         return this;
     }
@@ -92,7 +92,7 @@ public class ESM_Scale_Image extends ESM_Question {
         return this.esm.getString(esm_scale_min_label);
     }
 
-    public ESM_Scale_Image setScaleMinLabel(String label) throws JSONException {
+    public ESM_ScaleImage setScaleMinLabel(String label) throws JSONException {
         this.esm.put(esm_scale_min_label, label);
         return this;
     }
@@ -104,7 +104,7 @@ public class ESM_Scale_Image extends ESM_Question {
         return this.esm.getInt(esm_scale_max);
     }
 
-    public ESM_Scale_Image setScaleMax(int max) throws JSONException {
+    public ESM_ScaleImage setScaleMax(int max) throws JSONException {
         this.esm.put(esm_scale_max, max);
         return this;
     }
@@ -116,7 +116,7 @@ public class ESM_Scale_Image extends ESM_Question {
         return this.esm.getString(esm_scale_max_label);
     }
 
-    public ESM_Scale_Image setScaleMaxLabel(String label) throws JSONException {
+    public ESM_ScaleImage setScaleMaxLabel(String label) throws JSONException {
         this.esm.put(esm_scale_max_label, label);
         return this;
     }
@@ -128,7 +128,7 @@ public class ESM_Scale_Image extends ESM_Question {
         return this.esm.getBoolean(esm_scale_start_random);
     }
 
-    public ESM_Scale_Image setScaleStartRandom(boolean isRandom) throws  JSONException {
+    public ESM_ScaleImage setScaleStartRandom(boolean isRandom) throws  JSONException {
         this.esm.put(esm_scale_start_random, isRandom);
         return this;
     }
@@ -140,7 +140,7 @@ public class ESM_Scale_Image extends ESM_Question {
         return this.esm.getInt(esm_scale_start_random_values);
     }
 
-    public ESM_Scale_Image setScaleStartRandomValues(int randomValues) throws  JSONException {
+    public ESM_ScaleImage setScaleStartRandomValues(int randomValues) throws  JSONException {
         this.esm.put(esm_scale_start_random_values, randomValues);
         return this;
     }
@@ -152,7 +152,7 @@ public class ESM_Scale_Image extends ESM_Question {
         return this.esm.getString(esm_left_image_url);
     }
 
-    public ESM_Scale_Image setLeftImageUrl(String url) throws JSONException {
+    public ESM_ScaleImage setLeftImageUrl(String url) throws JSONException {
         this.esm.put(esm_left_image_url, url);
         return this;
     }
@@ -164,7 +164,7 @@ public class ESM_Scale_Image extends ESM_Question {
         return this.esm.getString(esm_right_image_url);
     }
 
-    public ESM_Scale_Image setRightImageUrl(String url) throws JSONException {
+    public ESM_ScaleImage setRightImageUrl(String url) throws JSONException {
         this.esm.put(esm_right_image_url, url);
         return this;
     }
@@ -176,7 +176,7 @@ public class ESM_Scale_Image extends ESM_Question {
         return this.esm.getBoolean(esm_value_visible);
     }
 
-    public ESM_Scale_Image setValueVisibility(boolean isVisible) throws JSONException {
+    public ESM_ScaleImage setValueVisibility(boolean isVisible) throws JSONException {
         this.esm.put(esm_value_visible, isVisible);
         return this;
     }
@@ -189,7 +189,7 @@ public class ESM_Scale_Image extends ESM_Question {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View ui = inflater.inflate(R.layout.esm_scale_image, null);
+        View ui = inflater.inflate(R.layout.esm_scaleimage, null);
         builder.setView(ui);
 
         esm_dialog = builder.create();
