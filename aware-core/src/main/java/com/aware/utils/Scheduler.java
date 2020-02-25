@@ -879,21 +879,25 @@ public class Scheduler extends Aware_Sensor {
             try {
                 JSONArray hours = schedule.getHours();
                 JSONArray minutes = schedule.getMinutes();
+                JSONArray weekdays = schedule.getWeekdays();
+                JSONArray months = schedule.getMonths();
 
-                for (int i = 0; i < hours.length(); i++) {
-                    trigger_time.set(Calendar.HOUR_OF_DAY, hours.getInt(i));
-                    if (minutes.length() > 0) {
-                        for (int j = 0; j < minutes.length(); j++) {
-                            trigger_time.set(Calendar.MINUTE, minutes.getInt(j));
+                if ((weekdays.length() == 0 || is_trigger_weekday(schedule)) && (months.length() == 0 || is_trigger_month(schedule))) {
+                    for (int i = 0; i < hours.length(); i++) {
+                        trigger_time.set(Calendar.HOUR_OF_DAY, hours.getInt(i));
+                        if (minutes.length() > 0) {
+                            for (int j = 0; j < minutes.length(); j++) {
+                                trigger_time.set(Calendar.MINUTE, minutes.getInt(j));
+                                if ((trigger_time.getTimeInMillis() >= previous.getTimeInMillis()) && (now.getTimeInMillis() >= trigger_time.getTimeInMillis())) {
+                                    if (DEBUG) Log.d(Scheduler.TAG, "Found past schedule skipped!");
+                                    return true;
+                                }
+                            }
+                        } else {
                             if ((trigger_time.getTimeInMillis() >= previous.getTimeInMillis()) && (now.getTimeInMillis() >= trigger_time.getTimeInMillis())) {
                                 if (DEBUG) Log.d(Scheduler.TAG, "Found past schedule skipped!");
                                 return true;
                             }
-                        }
-                    } else {
-                        if ((trigger_time.getTimeInMillis() >= previous.getTimeInMillis()) && (now.getTimeInMillis() >= trigger_time.getTimeInMillis())) {
-                            if (DEBUG) Log.d(Scheduler.TAG, "Found past schedule skipped!");
-                            return true;
                         }
                     }
                 }
