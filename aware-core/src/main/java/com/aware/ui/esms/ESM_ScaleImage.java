@@ -41,9 +41,9 @@ public class ESM_ScaleImage extends ESM_Question {
     public static final String esm_scale_start = "esm_scale_start";
     public static final String esm_scale_start_random = "esm_scale_start_random";
     public static final String esm_scale_start_random_values = "esm_scale_start_random_values";
+    public static final String esm_scale_value_visible = "esm_value_visible";
     public static final String esm_left_image_url = "esm_left_image_url";
     public static final String esm_right_image_url = "esm_right_image_url";
-    public static final String esm_value_visible = "esm_value_visible";
 
     public ESM_ScaleImage() throws JSONException {
         this.setType(ESM.TYPE_ESM_SCALE_IMAGE);
@@ -145,6 +145,18 @@ public class ESM_ScaleImage extends ESM_Question {
         return this;
     }
 
+    public boolean getScaleValueVisible() throws JSONException {
+        if (!this.esm.has(esm_scale_value_visible)) {
+            this.esm.put(esm_scale_value_visible, false);
+        }
+        return this.esm.getBoolean(esm_scale_value_visible);
+    }
+
+    public ESM_ScaleImage setScaleValueVisible(boolean isVisible) throws JSONException {
+        this.esm.put(esm_scale_value_visible, isVisible);
+        return this;
+    }
+
     public String getLeftImageUrl() throws JSONException {
         if (!this.esm.has(esm_left_image_url)) {
             this.esm.put(esm_left_image_url, JSONObject.NULL);
@@ -166,18 +178,6 @@ public class ESM_ScaleImage extends ESM_Question {
 
     public ESM_ScaleImage setRightImageUrl(String url) throws JSONException {
         this.esm.put(esm_right_image_url, url);
-        return this;
-    }
-
-    public boolean getValueVisibility() throws JSONException {
-        if (!this.esm.has(esm_value_visible)) {
-            this.esm.put(esm_value_visible, false);
-        }
-        return this.esm.getBoolean(esm_value_visible);
-    }
-
-    public ESM_ScaleImage setValueVisibility(boolean isVisible) throws JSONException {
-        this.esm.put(esm_value_visible, isVisible);
         return this;
     }
 
@@ -223,7 +223,7 @@ public class ESM_ScaleImage extends ESM_Question {
             final int step_size = getScaleStep();
 
             final TextView current_slider_value = ui.findViewById(R.id.esm_slider_value);
-            if (!getValueVisibility()) current_slider_value.setVisibility(View.INVISIBLE);
+            if (!getScaleValueVisible()) current_slider_value.setVisibility(View.INVISIBLE);
             current_slider_value.setText(String.valueOf(selected_scale_progress));
 
             final ImageView imageLeft = ui.findViewById(R.id.image_left);
