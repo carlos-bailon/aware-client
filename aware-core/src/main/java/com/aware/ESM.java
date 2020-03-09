@@ -345,16 +345,26 @@ public class ESM extends Aware_Sensor {
      * @param queue
      */
     public static void queueESM(Context context, String queue) {
-        queueESM(context, queue, false);
+        queueESM(context, queue, false, false);
     }
 
     /**
-     * Queue an ESM queue, but allowing trials
+     * Queue an ESM, but allowing trials
      *
      * @param context
      * @param queue
      */
     public static void queueESM(Context context, String queue, boolean isTrial) {
+        queueESM(context, queue, isTrial, false);
+    }
+
+    /**
+     * Queue an ESM, but allowing trials and manual triggering
+     *
+     * @param context
+     * @param queue
+     */
+    public static void queueESM(Context context, String queue, boolean isTrial, boolean isManual) {
         try {
             JSONArray esms = new JSONArray(queue);
 
@@ -409,7 +419,7 @@ public class ESM extends Aware_Sensor {
                 }
             }
 
-            if (is_persistent) { //show notification
+            if (is_persistent && !isManual) { //show notification
                 Cursor pendingESM = context.getContentResolver().query(ESM_Data.CONTENT_URI, null, ESM_Data.STATUS + "=" + ESM.STATUS_NEW, null, ESM_Data.TIMESTAMP + " ASC LIMIT 1");
                 if (pendingESM != null && pendingESM.moveToFirst()) {
                     //Set the timer if there is a notification timeout
