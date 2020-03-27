@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.Html;
@@ -92,7 +93,11 @@ public class Aware_Join_Study extends Aware_Activity {
 
         llPluginsRequired = (LinearLayout) findViewById(R.id.ll_plugins_required);
 
-        study_url = getIntent().getStringExtra(EXTRA_STUDY_URL);
+        if (savedInstanceState != null) {
+            study_url = savedInstanceState.getString(EXTRA_STUDY_URL);
+        } else {
+            study_url = getIntent().getStringExtra(EXTRA_STUDY_URL);
+        }
 
         //If we are getting here from an AWARE study link
         String scheme = getIntent().getScheme();
@@ -449,16 +454,28 @@ public class Aware_Join_Study extends Aware_Activity {
                     mPopulating.dismiss();
 
                     //Reload join study wizard. We already have the study info on the database.
-                    Intent studyInfo = new Intent(getApplicationContext(), Aware_Join_Study.class);
-                    studyInfo.putExtra(Aware_Join_Study.EXTRA_STUDY_URL, study_url);
-                    studyInfo.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(studyInfo);
+                    if (Build.VERSION.SDK_INT >= 11) {
+                        recreate();
+                    } else {
+                        Intent studyInfo = new Intent(getApplicationContext(), Aware_Join_Study.class);
+                        studyInfo.putExtra(Aware_Join_Study.EXTRA_STUDY_URL, study_url);
+                        studyInfo.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        finish();
+                        startActivity(studyInfo);
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString(EXTRA_STUDY_URL, study_url);
     }
 
     private class QuitStudyAsync extends AsyncTask<Void, Void, Void> {
