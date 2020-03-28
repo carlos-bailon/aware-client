@@ -7,9 +7,9 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.Html;
@@ -93,11 +93,7 @@ public class Aware_Join_Study extends Aware_Activity {
 
         llPluginsRequired = (LinearLayout) findViewById(R.id.ll_plugins_required);
 
-        if (savedInstanceState != null) {
-            study_url = savedInstanceState.getString(EXTRA_STUDY_URL);
-        } else {
-            study_url = getIntent().getStringExtra(EXTRA_STUDY_URL);
-        }
+        study_url = getIntent().getStringExtra(EXTRA_STUDY_URL);
 
         //If we are getting here from an AWARE study link
         String scheme = getIntent().getScheme();
@@ -110,11 +106,20 @@ public class Aware_Join_Study extends Aware_Activity {
             Uri url = Uri.parse(study_url);
             onboarding = url.getQueryParameter("participant");
             if (onboarding != null) {
-                participant_label.setText(onboarding);
                 if (Aware.DEBUG) Log.d(Aware.TAG, "AWARE Study participant ID detected: " + onboarding);
                 study_url = study_url.substring(0,study_url.indexOf("participant")-1);
                 if (Aware.DEBUG) Log.d(Aware.TAG, "AWARE Study URL: " + study_url);
+                participant_label.setText(onboarding);
+                participant_label.setFocusable(false);
+                participant_label.setEnabled(false);
+                participant_label.setCursorVisible(false);
+                participant_label.setKeyListener(null);
+                participant_label.setBackgroundColor(Color.TRANSPARENT);
+            } else {
+                onboarding = "";
+                participant_label.setText(onboarding);
             }
+
         }
 
         if (Aware.DEBUG) Log.d(Aware.TAG, "Study URL:" + study_url);
@@ -454,28 +459,17 @@ public class Aware_Join_Study extends Aware_Activity {
                     mPopulating.dismiss();
 
                     //Reload join study wizard. We already have the study info on the database.
-                    if (Build.VERSION.SDK_INT >= 11) {
-                        recreate();
-                    } else {
-                        Intent studyInfo = new Intent(getApplicationContext(), Aware_Join_Study.class);
-                        studyInfo.putExtra(Aware_Join_Study.EXTRA_STUDY_URL, study_url);
-                        studyInfo.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        finish();
-                        startActivity(studyInfo);
-                    }
+                    Intent studyInfo = new Intent(getApplicationContext(), Aware_Join_Study.class);
+                    studyInfo.putExtra(Aware_Join_Study.EXTRA_STUDY_URL, study_url);
+                    studyInfo.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    finish();
+                    startActivity(studyInfo);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         }
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        outState.putString(EXTRA_STUDY_URL, study_url);
     }
 
     private class QuitStudyAsync extends AsyncTask<Void, Void, Void> {
