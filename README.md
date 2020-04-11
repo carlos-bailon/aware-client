@@ -1,6 +1,8 @@
 AWARE Framework Android Client
 ======================
 
+<img align="left" src="https://awareframework.com/wp-content/uploads/2014/05/favicon.png" >
+
 AWARE is an Android framework dedicated to instrument, infer, log and share mobile context information,
 for application developers, researchers and smartphone users. AWARE captures hardware-, software-, and 
 human-based data. It encapsulates analysis, machine learning and simplifies conducting user studies 
@@ -23,7 +25,7 @@ Open-source (Apache 2.0)
 ========================
 
 Copyright (c) 2011 AWARE Mobile Context Instrumentation Middleware/Framework 
-![https://www.awareframework.com](http://www.awareframework.com)
+[https://www.awareframework.com](https://www.awareframework.com)
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
