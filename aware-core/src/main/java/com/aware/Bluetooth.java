@@ -491,6 +491,7 @@ public class Bluetooth extends Aware_Sensor {
                     .setDefaults(Notification.DEFAULT_ALL)
                     .setOnlyAlertOnce(true)
                     .setAutoCancel(true)
+                    .setGroup(Aware.AWARE_NOTIFICATION_GROUP_SENSORS)
                     .setContentIntent(PendingIntent.getService(c, 123, enableBT, PendingIntent.FLAG_UPDATE_CURRENT));
 
             builder = Aware.setNotificationProperties(builder, Aware.AWARE_NOTIFICATION_IMPORTANCE_GENERAL);

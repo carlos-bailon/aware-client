@@ -465,6 +465,7 @@ public class ESM extends Aware_Sensor {
         mBuilder.setUsesChronometer(true);
         mBuilder.setOnlyAlertOnce(notifyOnce);
         mBuilder.setDefaults(NotificationCompat.DEFAULT_ALL);
+        mBuilder.setGroup(Aware.AWARE_NOTIFICATION_GROUP_ESM);
         mBuilder = Aware.setNotificationProperties(mBuilder, Aware.AWARE_NOTIFICATION_IMPORTANCE_GENERAL);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)

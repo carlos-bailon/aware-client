@@ -171,6 +171,14 @@ public class Aware extends Service {
     public static final String AWARE_NOTIFICATION_CHANNEL_SILENT = "AWARE_NOTIFICATION_CHANNEL_SILENT";
     public static final String AWARE_NOTIFICATION_CHANNEL_DATASYNC = "AWARE_NOTIFICATION_CHANNEL_DATASYNC";
 
+    /**
+     * Android 8 notification groups support
+     */
+    public static final String AWARE_NOTIFICATION_GROUP_ESM = "AWARE_NOTIFICATION_GROUP_ESM";
+    public static final String AWARE_NOTIFICATION_GROUP_FOREGROUND = "AWARE_NOTIFICATION_GROUP_FOREGROUND";
+    public static final String AWARE_NOTIFICATION_GROUP_SETTINGS = "AWARE_NOTIFICATION_GROUP_SETTINGS";
+    public static final String AWARE_NOTIFICATION_GROUP_SENSORS = "AWARE_NOTIFICATION_GROUP_SENSORS";
+
     public static final int AWARE_NOTIFICATION_IMPORTANCE_GENERAL = NotificationManager.IMPORTANCE_HIGH;
     public static final int AWARE_NOTIFICATION_IMPORTANCE_SILENT = NotificationManager.IMPORTANCE_MIN;
     public static final int AWARE_NOTIFICATION_IMPORTANCE_DATASYNC = NotificationManager.IMPORTANCE_LOW;
@@ -355,6 +363,7 @@ public class Aware extends Service {
             mBuilder.setOngoing(true);
             mBuilder.setOnlyAlertOnce(true);
             mBuilder.setContentIntent(onTap);
+            mBuilder.setGroup(Aware.AWARE_NOTIFICATION_GROUP_FOREGROUND);
             mBuilder = Aware.setNotificationProperties(mBuilder, AWARE_NOTIFICATION_IMPORTANCE_SILENT);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
@@ -466,6 +475,7 @@ public class Aware extends Service {
             mBuilder.setAutoCancel(true);
             mBuilder.setOnlyAlertOnce(true); //notify the user only once
             mBuilder.setDefaults(NotificationCompat.DEFAULT_ALL);
+            mBuilder.setGroup(Aware.AWARE_NOTIFICATION_GROUP_SETTINGS);
             mBuilder = setNotificationProperties(mBuilder, AWARE_NOTIFICATION_IMPORTANCE_GENERAL);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
@@ -792,6 +802,7 @@ public class Aware extends Service {
                         mBuilder.setAutoCancel(true);
                         mBuilder.setOnlyAlertOnce(true); //notify the user only once
                         mBuilder.setDefaults(NotificationCompat.DEFAULT_ALL);
+                        mBuilder.setGroup(Aware.AWARE_NOTIFICATION_GROUP_SENSORS);
                         mBuilder = Aware.setNotificationProperties(mBuilder, AWARE_NOTIFICATION_IMPORTANCE_GENERAL);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
                             mBuilder.setChannelId(Aware.AWARE_NOTIFICATION_CHANNEL_GENERAL);

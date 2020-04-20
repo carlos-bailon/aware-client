@@ -256,6 +256,7 @@ public class AwareSyncAdapter extends AbstractThreadedSyncAdapter {
             mBuilder.setAutoCancel(true);
             mBuilder.setOnlyAlertOnce(true);
             mBuilder.setDefaults(NotificationCompat.DEFAULT_ALL);
+            mBuilder.setGroup(Aware.AWARE_NOTIFICATION_GROUP_SETTINGS);
             mBuilder = Aware.setNotificationProperties(mBuilder, Aware.AWARE_NOTIFICATION_IMPORTANCE_GENERAL);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
                 mBuilder.setChannelId(Aware.AWARE_NOTIFICATION_CHANNEL_GENERAL);
