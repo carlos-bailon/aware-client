@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+
 import com.aware.Aware;
 import com.aware.ESM;
 import com.aware.R;
@@ -24,6 +27,7 @@ import com.aware.utils.ESM_ImageUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Field;
 import java.util.Random;
 
 /**
@@ -230,14 +234,38 @@ public class ESM_ScaleImage extends ESM_Question {
             final ImageView imageRight = ui.findViewById(R.id.image_right);
 
             if(getLeftImageUrl() != JSONObject.NULL.toString()) {
-                ESM_ImageUtils.BitmapRetrieverTask task = new ESM_ImageUtils.BitmapRetrieverTask();
-                task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, getLeftImageUrl());
-                imageLeft.setImageBitmap(task.bitmap);
+                if (getLeftImageUrl().startsWith("http://") || getLeftImageUrl().startsWith("https://")) {
+                    ESM_ImageUtils.BitmapRetrieverTask task = new ESM_ImageUtils.BitmapRetrieverTask();
+                    task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, getLeftImageUrl());
+                    imageLeft.setImageBitmap(task.bitmap);
+                } else {
+                    try {
+                        Class res = R.drawable.class;
+                        Field field = res.getField(getLeftImageUrl());
+                        int icon_id = field.getInt(null);
+                        Drawable icon = ContextCompat.getDrawable(getContext().getApplicationContext(), icon_id);
+                        imageLeft.setImageDrawable(icon);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
             }
             if(getRightImageUrl() != JSONObject.NULL.toString()) {
-                ESM_ImageUtils.BitmapRetrieverTask task = new ESM_ImageUtils.BitmapRetrieverTask();
-                task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, getRightImageUrl());
-                imageRight.setImageBitmap(task.bitmap);
+                if (getLeftImageUrl().startsWith("https://") || getRightImageUrl().startsWith("https://")) {
+                    ESM_ImageUtils.BitmapRetrieverTask task = new ESM_ImageUtils.BitmapRetrieverTask();
+                    task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, getRightImageUrl());
+                    imageRight.setImageBitmap(task.bitmap);
+                } else {
+                    try {
+                        Class res = R.drawable.class;
+                        Field field = res.getField(getRightImageUrl());
+                        int icon_id = field.getInt(null);
+                        Drawable icon = ContextCompat.getDrawable(getContext().getApplicationContext(), icon_id);
+                        imageRight.setImageDrawable(icon);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
             }
 
             final SeekBar seekBar = ui.findViewById(R.id.esm_scale);
