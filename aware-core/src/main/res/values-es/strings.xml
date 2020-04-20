@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AWARE</string>
+    <string name="aware_description">AWARE es un framework de Android que facilita la extracción, almacenamiento y el intercambio de información de contexto entre aplicaciones móviles. Para más detalles, visita http://awareframework.com.</string>
+
+    <string name="channel_general_description">AWARE - Notificaciones generales</string>
+    <string name="channel_silent_description">AWARE - Notificaciones sin interrupción</string>
+    <string name="channel_datasync_description">AWARE - Notificaciones de sincronización</string>
+
+    <string name="read_permission">Permite el acceso de sólo lectura a los datos locales.</string>
+    <string name="write_permission">Permite el acceso de lectura y escritura a los datos locales.</string>
+    <string name="aware_studies">AWARE - Estudios</string>
+    <string name="aware_sensors">AWARE</string>
+    <string name="aware_stream">AWARE - Datos</string>
+    <string name="aware_plugins">AWARE - Plugins</string>
+    <string name="aware_esm_questions_title">Tiene un nuevo cuestionario disponible</string>
+    <string name="aware_esm_questions">Pulse para responder</string>
+    <string name="aware_activate_accessibility_title">Por favor, active AWARE</string>
+    <string name="aware_activate_accessibility">Pulse aquí para activar el servicio de accesibilidad.</string>
+    <string name="aware_activate_battery_optimize_ignore_title">Doze</string>
+    <string name="aware_activate_battery_optimize_ignore">Pulse para ignorar las optimizaciones de batería de esta aplicación.</string>
+    <string name="aware_team">Equipo</string>
+    <string name="aware_qrcode">Código QR</string>
+    <string name="aware_sync">Sincronizar</string>
+    <string name="aware_study">Estudio</string>
+    <string name="aware_esm_other">Otro</string>
+    <string name="aware_esm_other_follow">¿Puede ser más preciso, por favor?</string>
+    <string name="plugins_required">Plugins necesarios (instalar para unirse al estudio)</string>
+    <string name="sign_up">¡Unirme!</string>
+    <string name="install">Instalar</string>
+    <string name="foreground_notification_title">AWARE</string>
+    <string name="foreground_notification_text">AWARE está activo</string>
+    <string name="foreground_notification_sync_text">Sincronizando</string>
+
+    <string name="study_participant_label">Código de participante</string>
+    <string name="study_participant_label_hint">Introduzca su código de participante</string>
+    <string name="study_quit">Salir del estudio</string>
+
+    <string name="participant_ui_study">ID del estudio</string>
+    <string name="participant_ui_device">ID del dispositivo</string>
+    <string name="participant_ui_label">Código de participante</string>
+
+    <string name="sensor_accelerometer">Acelerómetro</string>
+    <string name="sensor_applications">Aplicaciones</string>
+    <string name="sensor_bluetooth">Bluetooth</string>
+    <string name="sensor_locations">Localización</string>
+    <string name="sensor_installations">Instalaciones</string>
+    <string name="sensor_esms">Cuestionarios/ESM</string>
+    <string name="sensor_temperature">Temperatura</string>
+    <string name="sensor_linear_accelerometer">Acelerómetro lineal</string>
+    <string name="sensor_gravity">Gravedad</string>
+    <string name="sensor_barometer">Barómetro</string>
+    <string name="sensor_magnetometer">Magnetómetro</string>
+    <string name="sensor_proximity">Proximidad</string>
+    <string name="sensor_light">Luz</string>
+    <string name="sensor_telephony">Telefonía</string>
+    <string name="sensor_aware">AWARE - dispositivo</string>
+    <string name="sensor_rotation">Rotación</string>
+    <string name="sensor_wifi">Wi-Fi</string>
+    <string name="sensor_gyroscope">Giróscopo</string>
+    <string name="sensor_traffic">Tráfico de red</string>
+    <string name="sensor_processor">Procesador (CPU)</string>
+    <string name="sensor_timezone">Zona horaria</string>
+    <string name="sensor_battery">Batería</string>
+    <string name="sensor_screen">Pantalla</string>
+    <string name="sensor_network_usage">Red</string>
+    <string name="sensor_communications">Comunicaciones (llamadas/sms)</string>
+    <string name="sensor_keyboard">Teclado</string>
+    <string name="sensor_significant">Movimiento significativo</string>
+    <string name="aware_battery_recharge">Por favor, recarge su teléfono lo antes posible.</string>
+</resources>
