@@ -30,7 +30,8 @@
         <RatingBar
             android:id="@+id/esm_likert"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:progressDrawable="@drawable/rating_circle_display"/>
 
     </LinearLayout>
 
