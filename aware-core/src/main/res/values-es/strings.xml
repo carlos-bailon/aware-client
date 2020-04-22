@@ -19,6 +19,7 @@
     <string name="aware_activate_accessibility">Pulse aquí para activar el servicio de accesibilidad.</string>
     <string name="aware_activate_battery_optimize_ignore_title">Doze</string>
     <string name="aware_activate_battery_optimize_ignore">Pulse para ignorar las optimizaciones de batería de esta aplicación.</string>
+    <string name="aware_battery_recharge">Por favor, recarge su teléfono lo antes posible.</string>
     <string name="aware_team">Equipo</string>
     <string name="aware_qrcode">Código QR</string>
     <string name="aware_sync">Sincronizar</string>
@@ -67,5 +68,5 @@
     <string name="sensor_communications">Comunicaciones (llamadas/sms)</string>
     <string name="sensor_keyboard">Teclado</string>
     <string name="sensor_significant">Movimiento significativo</string>
-    <string name="aware_battery_recharge">Por favor, recarge su teléfono lo antes posible.</string>
+
 </resources>
